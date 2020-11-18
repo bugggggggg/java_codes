@@ -24,6 +24,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/*
+*   jwt过滤器
+ */
 @Component
 public class JwtFilter extends AuthenticatingFilter {
 

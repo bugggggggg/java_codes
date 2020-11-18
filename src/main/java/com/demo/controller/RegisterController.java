@@ -21,6 +21,8 @@ public class RegisterController {
     @PostMapping("/register")
     public Result register(@Validated @RequestBody RegisterDto registerDto){
 
+        //这里要检查一下邮箱格式
+
         //用户id从1开始递增
         Integer userCnt= userService.count()+1;
 
