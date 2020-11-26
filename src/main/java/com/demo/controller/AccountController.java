@@ -31,7 +31,8 @@ public class AccountController {
     @PostMapping("/login")
     public Result login(@Validated @RequestBody LoginDto loginDto, HttpServletResponse response){
 
-        User user=userService.getOne(new QueryWrapper<User>().eq("username",loginDto.getUsername()));
+        //User user=userService.getOne(new QueryWrapper<User>().eq("username",loginDto.getUsername()));
+        User user=userService.getOne(new QueryWrapper<User>().eq("email",loginDto.getEmail()));
         Assert.notNull(user,"用户不存在");
 
         if(!user.getPassword().equals(loginDto.getPassword()))
@@ -39,12 +40,12 @@ public class AccountController {
             return Result.fail("密码不正确");
         }
 
-        String jwt=jwtUtils.generateToken(user.getId());
-        response.setHeader("Authorization",jwt);
-        response.setHeader("Access-control-Expose-Headers","Authorization");
+//        String jwt=jwtUtils.generateToken(user.getId());
+//        response.setHeader("Authorization",jwt);
+//        response.setHeader("Access-control-Expose-Headers","Authorization");
 
         return Result.succ(MapUtil.builder()
-                .put("id",user.getId())
+                .put("userid",user.getId())
                 .put("username",user.getUsername())
                 .put("avatar",user.getAvatar())
                 .put("email",user.getEmail())
@@ -56,7 +57,7 @@ public class AccountController {
     @RequiresAuthentication
     @GetMapping("/logout")
     public Result logout(){
-        SecurityUtils.getSubject().logout();
+        //SecurityUtils.getSubject().logout();
         return Result.succ(null);
     }
 

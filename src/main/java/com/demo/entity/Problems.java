@@ -13,7 +13,7 @@ import lombok.experimental.Accessors;
  * </p>
  *
  * @author w_57
- * @since 2020-11-20
+ * @since 2020-11-26
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -51,6 +51,15 @@ public class Problems implements Serializable {
 
     @TableField("problemHint")
     private String problemHint;
+
+    @TableField("problemCheckPointCnt")
+    private Integer problemCheckPointCnt;
+
+    @TableField("problemSubmitCnt")
+    private Integer problemSubmitCnt;
+
+    @TableField("problemAcceptCnt")
+    private Integer problemAcceptCnt;
 
 
 }

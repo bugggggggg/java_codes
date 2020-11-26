@@ -1,4 +1,5 @@
-
+server:
+  port: 8081
 
 spring:
   datasource:
@@ -14,10 +15,3 @@ shiro-redis:
   redis-manager:
     host: 127.0.0.1:6379
 
-demo:
-  jwt:
-    # 加密秘钥
-    secret: f4e2e52034348f86b67cde581c0f9eb5
-    # token有效时长，7天，单位秒
-    expire: 604800
-    header: token

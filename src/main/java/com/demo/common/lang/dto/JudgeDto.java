@@ -5,20 +5,20 @@ import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Positive;
+import javax.validation.constraints.PositiveOrZero;
+import java.io.Serializable;
 
 @Data
-public class JudgeDto {
+public class JudgeDto implements Serializable {
 
     @NotBlank(message = "请选择语言")
     private String language;
 
-    @Positive(message = "请选择语言")
+    @PositiveOrZero(message = "请选择语言")
     private Integer languageId;
 
-    @Positive(message = "时限为空")
     private int timeLimit;
 
-    @Positive(message = "测试点的数量未知")
     private int checkpoint_cnt;
 
     @Positive(message = "请选择要提交的题目")

@@ -23,7 +23,7 @@ public class UserController {
     @Autowired
     UserService userService;
 
-    @RequiresAuthentication
+    //@RequiresAuthentication
     @GetMapping("/index")
     public Result index() {
         User user = userService.getById("1");
