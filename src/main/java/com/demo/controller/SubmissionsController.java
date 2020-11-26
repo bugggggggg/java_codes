@@ -21,7 +21,6 @@ import java.util.List;
  * @since 2020-11-18
  */
 @RestController
-@RequestMapping("/problem")
 public class SubmissionsController {
 
     @Autowired
@@ -29,7 +28,7 @@ public class SubmissionsController {
 
 
     @GetMapping("/statusList")
-    public Result getProblemList(@RequestParam("pagenum") int pagenum,
+    public Result getStatusList(@RequestParam("pagenum") int pagenum,
                                  @RequestParam("pagesize")int pagesize,
                                  @RequestParam("query") String query){
         List<Submissions> retList=new ArrayList<>();
@@ -58,10 +57,11 @@ public class SubmissionsController {
 
 
     @GetMapping("/status")
-    public Result getProblem(@RequestParam("userId") String userId){
+    public Result getStatus(@RequestParam("userId") String userId){
         List<Submissions> retList=submissionsService.list(new QueryWrapper<Submissions>().eq("uid",userId));
         return Result.succ(MapUtil.builder()
                 .put("statusList",retList)
+                .put("total",retList.size())
                 .map());
     }
 

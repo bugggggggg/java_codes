@@ -13,6 +13,7 @@ public class MailUtil implements Runnable {
     private String email;// 收件人邮箱
     private String code;// 激活码
 
+
     public MailUtil(String email, String code) {
         this.email = email;
         this.code = code;

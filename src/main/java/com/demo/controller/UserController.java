@@ -23,10 +23,10 @@ public class UserController {
     @Autowired
     UserService userService;
 
-    //@RequiresAuthentication
+
     @GetMapping("/index")
-    public Result index() {
-        User user = userService.getById("1");
+    public Result index(@RequestParam("userId") String userId) {
+        User user = userService.getById(userId);
         return Result.succ(user);
     }
 
