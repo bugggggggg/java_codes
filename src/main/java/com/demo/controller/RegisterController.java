@@ -58,7 +58,7 @@ public class RegisterController {
         }
         int val=(int)(Math.random()*999999);
         String code=String.valueOf(val);
-        new Thread(new MailUtil(verifyCodeDto.getEmail(),code)).start();
+        new Thread(new MailUtil(verifyCodeDto.getEmail(),code,"激活邮件")).start();
         return Result.succ(
                 MapUtil.builder()
                 .put("verifyCode", code)

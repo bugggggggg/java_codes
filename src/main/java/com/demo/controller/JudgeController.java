@@ -69,6 +69,11 @@ public class JudgeController {
         }
 
         submissionsService.save(submissions);
+        problems.setProblemSubmitCnt(problems.getProblemSubmitCnt()+1);
+        if(submissions.getSubmissionJudgeResult().equals("Accept")){
+            problems.setProblemAcceptCnt(problems.getProblemAcceptCnt()+1);
+        }
+        problemsService.saveOrUpdate(problems);
 
 
         return Result.succ(MapUtil.builder()

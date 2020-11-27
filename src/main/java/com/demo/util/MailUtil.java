@@ -12,11 +12,21 @@ import java.util.Properties;
 public class MailUtil implements Runnable {
     private String email;// 收件人邮箱
     private String code;// 激活码
+    private String subject;//邮件主题
+    private String content;//邮件嫩容
 
 
-    public MailUtil(String email, String code) {
+    public MailUtil(String email, String code,String subject) {
         this.email = email;
         this.code = code;
+        this.subject=subject;
+        if(subject.equals("密码找回")){
+            this.content="<html><head></head><body><h1>这是一封密码找回邮件</h1><h3>密码为" + code
+                        + "</h3></body></html>";
+        }else{
+            this.content="<html><head></head><body><h1>这是一封激活邮件</h1><h3>验证码为" + code
+                    + "</h3></body></html>";
+        }
     }
 
     public void run() {
@@ -54,10 +64,9 @@ public class MailUtil implements Runnable {
             // 2.2设置接收人
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(email));
             // 2.3设置邮件主题
-            message.setSubject("账号激活");
+            message.setSubject(this.subject);
             // 2.4设置邮件内容
-            String content = "<html><head></head><body><h1>这是一封激活邮件</h1><h3>验证码为" + code
-                    + "</h3></body></html>";
+            String content = this.content;
             message.setContent(content, "text/html;charset=UTF-8");
             // 3.发送邮件
             Transport.send(message);
