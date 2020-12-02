@@ -16,6 +16,15 @@ public class ExecuteResult {
     private int executeTime;
 
     public ExecuteResult(int exitCode, String executeOut) {
+       // System.out.println(exitCode);
+        //System.out.println(executeOut);
+        if(executeOut==null)
+        {
+            this.exitCode=-2;
+            this.executeTime=0;
+            this.executeOut = "";
+            return;
+        }
         executeOut= StringClean.clean(executeOut);
 
         this.executeTime=0;
@@ -24,7 +33,7 @@ public class ExecuteResult {
     }
 
     public ExecuteResult(int exitCode, String executeOut,int executeTime) {
-       executeOut=StringClean.clean(executeOut);
+        executeOut=StringClean.clean(executeOut);
 
         this.exitCode = exitCode;
         this.executeOut = executeOut;

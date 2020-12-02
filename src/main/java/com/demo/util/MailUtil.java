@@ -39,8 +39,19 @@ public class MailUtil implements Runnable {
 
         Properties properties = System.getProperties();// 获取系统属性
 
-        properties.setProperty("mail.smtp.host", host);// 设置邮件服务器
-        properties.setProperty("mail.smtp.auth", "true");// 打开认证
+       // properties.setProperty("mail.smtp.host", host);// 设置邮件服务器
+        //properties.setProperty("mail.smtp.auth", "true");// 打开认证
+       // properties.setProperty("mail.smtp.port", "587");
+
+        properties.put("mail.smtp.host", "smtp.163.com");
+        //SSLSocketFactory类的端口
+        properties.put("mail.smtp.socketFactory.port", "465");
+        //SSLSocketFactory类
+        properties.put("mail.smtp.socketFactory.class",
+                "javax.net.ssl.SSLSocketFactory");
+        properties.put("mail.smtp.auth", "true");
+        //网易提供的ssl加密端口,QQ邮箱也是该端口
+        properties.put("mail.smtp.port", "465");
 
         try {
             //QQ邮箱需要下面这段代码，163邮箱不需要

@@ -12,7 +12,7 @@ public class Judge {
     private static final String CplusplusFile_win="submitFile/cplusplus/";
 
     public static void main(String[] args) {
-        JudgeResult judgeResult=judge("hello",10,1,1000);
+        JudgeResult judgeResult=judge("hello",1000,1,1000);
         System.out.println(judgeResult);
     }
 
@@ -23,6 +23,9 @@ public class Judge {
     public static JudgeResult judge(String filename,int timeLimit,int checkpoint_cnt,Integer problem_id) {
 
         String command=".\\"+CplusplusFile_win+filename+".exe";
+        if(OSjudge.isOSLinux()) {
+            command = ".//" + CplusplusFile_win + filename + ".exe";
+        }
         System.out.println(command);
         LocalCommandExecutor localCommandExecutor=new LocalCommandExecutorImpl();
 
@@ -39,6 +42,10 @@ public class Judge {
 
             if(executeResult.getExitCode()==-1){
                 submissionJudgeResult="Runtime Error";
+                break;
+            }
+            if(executeResult.getExitCode()==-2){
+                submissionJudgeResult="Time Limit Exceed";
                 break;
             }
             else if(executeResult.getExitCode()==1){

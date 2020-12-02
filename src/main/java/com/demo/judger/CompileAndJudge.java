@@ -8,11 +8,9 @@ public class CompileAndJudge {
     public static void main(String[] args) {
         String code="#include<bits/stdc++.h>\n" +
                 "using namespace std;\n" +
-                "\n" +
-                "int main(){\n" +
-                "\tint x,y;\n" +
-                "\tscanf(\"%d%d\",&x,&y);\n" +
-                "\tprintf(\"%d\\n%d\",x+y,x-y);\n" +
+                "int main()\n" +
+                "{\n" +
+                "\twhile(1){}\n" +
                 "\treturn 0;\n" +
                 "}";
         //code="#include<bits/stdc++.h>\nusing namespace std;\n\nint main(){\n\tint x,y;\n\tscanf(\"%d%d\",&x,&y);\n\tprintf(\"%d\\n%d\",x+y,x-y);\n\treturn 0;";
@@ -41,7 +39,7 @@ public class CompileAndJudge {
 
         //编译程序
         ExecuteResult executeResult=Compile.startProgram(language,filename);
-
+        System.out.println("编译成功");
         JudgeResult judgeResult=new JudgeResult();
         if(executeResult.getExitCode()==-1){
             judgeResult.setSubmissionJudgeResult("UnKnown Error");

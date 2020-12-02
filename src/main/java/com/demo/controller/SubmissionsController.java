@@ -50,7 +50,9 @@ public class SubmissionsController {
                 retList.add(submissionsList.get(i));
             }
         }
-        else total=retList.size();
+        else {
+            total = retList.size();
+        }
 
         return Result.succ(MapUtil.builder()
                 .put("statusList",retList)

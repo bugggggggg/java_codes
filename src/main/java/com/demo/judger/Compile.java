@@ -24,7 +24,8 @@ public class Compile {
         }
         else if(OSjudge.isOSLinux())
         {
-
+            ExecuteResult executeResult=startCplusplus_linux(filename);
+            return executeResult;
         }
         return null;
     }
@@ -36,6 +37,21 @@ public class Compile {
 
         command=command.replace("{filename}",file);
         command="cmd.exe /C "+command;//编译命令
+        //System.out.println(command);
+
+        ExecuteResult executeResult= new LocalCommandExecutorImpl().executeCommandOnlyOut(command);
+        System.out.println(executeResult);
+
+        return executeResult;
+    }
+
+    private static ExecuteResult startCplusplus_linux(String filename) {
+        String command=Cplusplus;
+        String file=CplusplusFile_win+filename;
+
+
+        command=command.replace("{filename}",file);
+        //command="cmd.exe /C "+command;//编译命令
         //System.out.println(command);
 
         ExecuteResult executeResult= new LocalCommandExecutorImpl().executeCommandOnlyOut(command);

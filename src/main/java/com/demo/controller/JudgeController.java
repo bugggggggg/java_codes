@@ -34,6 +34,16 @@ public class JudgeController {
 //        System.out.println(judgeDto.getSubmissionCode());
 //        return Result.succ(null);
 
+
+        if(judgeDto.getSubmissionCode().contains("ystem")){
+
+
+            return Result.succ(MapUtil.builder()
+                    .put("submissionJudgeResult","code is killed")
+                    .put("error","")
+                    .map()
+            );
+        }
         Problems problems=problemsService.getById(judgeDto.getProblem_id());
         judgeDto.setCheckpoint_cnt(problems.getProblemCheckPointCnt());
         judgeDto.setTimeLimit(problems.getProblemTimeLimit());
