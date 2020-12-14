@@ -55,7 +55,9 @@ public class AccountController {
     @GetMapping("/getPasswordByEmail")
     public Result getPasswordByEmail(@RequestParam("email")String email){
         User user=userService.getOne(new QueryWrapper<User>().eq("email",email));
-        if(user==null) return Result.fail("用户不存在");
+        if(user==null) {
+            return Result.fail("用户不存在");
+        }
         new Thread(new MailUtil(email,user.getPassword(),"密码找回")).start();
         return Result.succ(null,"包括密码的邮箱已发送到"+email);
     }

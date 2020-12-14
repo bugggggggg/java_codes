@@ -12,6 +12,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -48,6 +49,8 @@ public class BlogController {
                               @RequestParam("pagesize")int pagesize){
         List<Blog> blogList=blogService.list(new QueryWrapper<Blog>().eq("uid",userId));
 
+        Collections.reverse(blogList);
+
         int total=blogList.size();
         List<Blog> retList=new ArrayList<>();
         for(int i=Math.min(total,(pagenum-1)*pagesize);i<Math.min(total,pagenum*pagesize);i++){
@@ -63,6 +66,7 @@ public class BlogController {
     public Result getBlogList(@RequestParam("pagenum") int pagenum,
                               @RequestParam("pagesize")int pagesize){
         List<Blog> blogList=blogService.list();
+        Collections.reverse(blogList);
         int total=blogList.size();
         List<Blog> retList=new ArrayList<>();
         for(int i=Math.min(total-1,(pagenum-1)*pagesize);i<Math.min(total,pagenum*pagesize);i++){

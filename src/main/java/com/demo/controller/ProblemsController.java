@@ -1,19 +1,18 @@
 package com.demo.controller;
 
 
+import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.map.MapUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.demo.common.lang.Result;
+import com.demo.common.lang.dto.AddProblemDto;
 import com.demo.entity.Problems;
 import com.demo.entity.Submissions;
 import com.demo.service.ProblemsService;
 import com.demo.service.SubmissionsService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,7 +52,9 @@ public class ProblemsController {
                 retList.add(problemsList.get(i));
             }
         }
-        else total=retList.size();
+        else {
+            total=retList.size();
+        }
         return Result.succ(MapUtil.builder()
                 .put("problemList",retList)
                 .put("total",total)
@@ -67,4 +68,17 @@ public class ProblemsController {
 
         return Result.succ(problem);
     }
+
+
+    @PostMapping("/addProblem")
+    public Result addProblem(@Validated @RequestBody AddProblemDto addProblemDto){
+        Problems problems=new Problems();
+
+        BeanUtil.copyProperties(addProblemDto,problems);
+        problems.setProblemCheckPointCnt(0);
+        problems.setProblemId(problemsService.count()+1000);
+        problemsService.save(problems);
+        return Result.succ(null);
+    }
+
 }

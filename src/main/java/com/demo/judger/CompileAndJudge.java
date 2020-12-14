@@ -6,30 +6,34 @@ import com.demo.judger.data.JudgeResult;
 
 public class CompileAndJudge {
     public static void main(String[] args) {
-        String code="#include<bits/stdc++.h>\n" +
-                "using namespace std;\n" +
-                "int main()\n" +
-                "{\n" +
-                "\twhile(1){}\n" +
-                "\treturn 0;\n" +
-                "}";
-        //code="#include<bits/stdc++.h>\nusing namespace std;\n\nint main(){\n\tint x,y;\n\tscanf(\"%d%d\",&x,&y);\n\tprintf(\"%d\\n%d\",x+y,x-y);\n\treturn 0;";
-        JudgeResult judgeResult=compileAndJudge("C++",10,1,1000,code);
-        System.out.println(judgeResult);
+//        String code="#include<bits/stdc++.h>\n" +
+//                "using namespace std;\n" +
+//                "int main()\n" +
+//                "{\n" +
+//                "\twhile(1){}\n" +
+//                "\treturn 0;\n" +
+//                "}";
+//        //code="#include<bits/stdc++.h>\nusing namespace std;\n\nint main(){\n\tint x,y;\n\tscanf(\"%d%d\",&x,&y);\n\tprintf(\"%d\\n%d\",x+y,x-y);\n\treturn 0;";
+//        JudgeResult judgeResult=compileAndJudge(1,"C++",10,1,1000,code);
+//        System.out.println(judgeResult);
     }
 
-    static final String filename="hello";
-    public static JudgeResult compileAndJudge(String language, int timeLimit, int checkpoint_cnt, Integer problem_id,String submissionCode){
+    //static final String filename="hello";
+    public static JudgeResult compileAndJudge(Integer submissionId,String language, int timeLimit, int checkpoint_cnt, Integer problem_id,String submissionCode){
 
         //提交的代码生成.cpp 或.java文件
 
         language=language.toLowerCase();
+        Integer id=submissionId%10;
+        String filename=id.toString();
+
         if(language.contains("java")){//java
 
         }
         else if(language.contains("c")){//c++
 
-            GenerateFileUtil.generate(submissionCode,"cpp");
+
+            GenerateFileUtil.generate(submissionCode,"cpp",filename);
 
         }
         else{

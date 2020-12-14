@@ -49,7 +49,30 @@ public class JudgeController {
         judgeDto.setTimeLimit(problems.getProblemTimeLimit());
 
         System.out.println(judgeDto);
+
+        Integer submission_cnt=submissionsService.count()+1;
+        Submissions submissions=new Submissions();
+
+        {
+
+
+            submissions.setSubmissionId(submission_cnt);
+
+            submissions.setLanguageId(judgeDto.getLanguageId());
+            submissions.setProblemId(judgeDto.getProblem_id());
+           submissions.setSubmissionCode(judgeDto.getSubmissionCode());
+            submissions.setSubmissionJudgeResult("judging");
+
+
+            // System.out.println(submissions);
+            submissions.setUid(judgeDto.getUid());
+
+
+        }
+        submissionsService.save(submissions);
+
         JudgeResult judgeResult= CompileAndJudge.compileAndJudge(
+                submission_cnt,
                 judgeDto.getLanguage(),
                 judgeDto.getTimeLimit(),
                 judgeDto.getCheckpoint_cnt(),
@@ -57,32 +80,35 @@ public class JudgeController {
                 judgeDto.getSubmissionCode()
         );
 
-        Submissions submissions=new Submissions();
+
 
         {
-            Integer submission_cnt=submissionsService.count()+1;
 
-            submissions.setSubmissionId(submission_cnt);
 
-            submissions.setLanguageId(judgeDto.getLanguageId());
-            submissions.setProblemId(judgeDto.getProblem_id());
-            submissions.setSubmissionCode(judgeDto.getSubmissionCode());
+
             submissions.setSubmissionJudgeResult(judgeResult.getSubmissionJudgeResult());
 
             submissions.setSubmissionUsedMemory(judgeResult.getSubmissionUsedMemory());
             submissions.setSubmissionUsedTime(judgeResult.getSubmissionUsedTime());
-            System.out.println(submissions);
-            submissions.setUid(judgeDto.getUid());
+           // System.out.println(submissions);
 
-            System.out.println(submissions);
+
+           // System.out.println(submissions);
 
         }
 
-        submissionsService.save(submissions);
+        if(judgeResult.getSubmissionJudgeResult().equals("Compile Error")){
+            submissions.setSubmissionCode(judgeDto.getSubmissionCode()+"\n\n\n"+judgeResult.getError());
+            System.out.println("CE!!!!");
+        }
+        submissionsService.saveOrUpdate(submissions);
+
         problems.setProblemSubmitCnt(problems.getProblemSubmitCnt()+1);
         if(submissions.getSubmissionJudgeResult().equals("Accept")){
             problems.setProblemAcceptCnt(problems.getProblemAcceptCnt()+1);
         }
+
+
         problemsService.saveOrUpdate(problems);
 
 
