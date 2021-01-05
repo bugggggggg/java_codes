@@ -138,13 +138,13 @@ public class ContestController {
         List<ContestContestants> userList=contestContestantsService
                 .list(new QueryWrapper<ContestContestants>().eq("contestId",contestId));
         int total=userList.size();
-
+       // System.out.println(total);
         List<Map> allList=new ArrayList<>();
         for(int i=0;i<total;i++){
 
             HashSet<Integer> acceptSet=new HashSet<>();
             for(int j=0;j<contestSubmissionsList.size();j++){
-                Submissions submissions=submissionsService.getById(contestSubmissionsList.get(i).getSubmissionId());
+                Submissions submissions=submissionsService.getById(contestSubmissionsList.get(j).getSubmissionId());
                 if(!submissions.getUid().equals(userList.get(i).getContestantUid().toString())){
                     continue;
                 }
@@ -161,6 +161,12 @@ public class ContestController {
 
         List<Map> retList=new ArrayList<>();
 
+        if(total==0){
+            return Result.succ(MapUtil.builder()
+                    .put("statusList",retList)
+                    .put("total",total)
+                    .map());
+        }
         for(int i=Math.min(total-1,(pagenum-1)*pagesize);i<Math.min(total,pagenum*pagesize);i++){
             retList.add(allList.get(i));
         }

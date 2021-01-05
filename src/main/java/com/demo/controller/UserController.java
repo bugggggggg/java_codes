@@ -8,7 +8,6 @@ import com.demo.entity.Submissions;
 import com.demo.entity.User;
 import com.demo.service.SubmissionsService;
 import com.demo.service.UserService;
-import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;

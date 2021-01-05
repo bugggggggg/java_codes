@@ -6,10 +6,7 @@ import com.demo.common.lang.Result;
 import com.demo.common.lang.dto.LoginDto;
 import com.demo.entity.User;
 import com.demo.service.UserService;
-import com.demo.util.JwtUtils;
 import com.demo.util.MailUtil;
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.Assert;
 import org.springframework.validation.annotation.Validated;
@@ -23,8 +20,6 @@ public class AccountController {
     @Autowired
     UserService userService;
 
-    @Autowired
-    JwtUtils jwtUtils;
 
     @PostMapping("/login")
     public Result login(@Validated @RequestBody LoginDto loginDto, HttpServletResponse response){

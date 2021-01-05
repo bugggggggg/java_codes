@@ -91,6 +91,7 @@ public class BlogController {
             blogService.save(newblog);
         }else{//修改原有博客
             blog.setContent(saveBlogDto.getContent());
+            blog.setBlogTitle(saveBlogDto.getBlogTitle());
             blogService.saveOrUpdate(blog);
         }
         return Result.succ(null,"博客更新成功");

@@ -1,6 +1,7 @@
 package com.demo.common.lang.dto;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
@@ -15,9 +16,7 @@ public class AddContestDto {
 
     private String contestNotes;
 
-
     private LocalDateTime contestStartTime;
-
 
     private LocalDateTime contestEndTime;
 
